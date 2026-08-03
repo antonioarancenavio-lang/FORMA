@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORMA — Plataforma para gimnasios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #101215;
+    --panel: #191C21;
+    --panel-2: #21252B;
+    --chalk: #EDEAE2;
+    --chalk-dim: #93969C;
+    --line: #2A2E35;
+    --plat-accent: #C9A227;
+
+    --brand: #C9A227;
+    --brand-2: #C1443C;
+    --brand-soft: rgba(201,162,39,0.12);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{ background: var(--bg); color: var(--chalk); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+  .display{ font-family:'Anton', sans-serif; text-transform:uppercase; letter-spacing:0.01em; }
+  img{ max-width:100%; display:block; }
+  button{ font-family:inherit; cursor:pointer; }
+
+  .app-topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 16px 5vw; border-bottom:1px solid var(--line);
+    position:sticky; top:0; background: rgba(16,18,21,0.94); backdrop-filter: blur(8px); z-index:100;
+  }
+  .brand-mark{ display:flex; align-items:center; gap:10px; }
+  .brand-mark .dot{ width:9px; height:9px; border-radius:50%; background: var(--plat-accent); }
+  .brand-mark span{ font-size:13px; letter-spacing:0.14em; color: var(--chalk-dim); text-transform:uppercase; }
+  .brand-mark b{ color: var(--chalk); }
+
+  .view-switch{ display:flex; gap:2px; background: var(--panel); border:1px solid var(--line); border-radius:6px; padding:3px; }
+  .view-switch button{
+    background:transparent; border:none; color:var(--chalk-dim); font-size:13px; font-weight:600;
+    padding:9px 18px; border-radius:4px; transition: all .15s ease;
+  }
+  .view-switch button.on{ background: var(--panel-2); color: var(--chalk); }
+
+  .owner-access{ font-size:12px; color: var(--chalk-dim); background:transparent; border:1px solid var(--line); padding:9px 16px; border-radius:6px; }
+  .owner-access:hover{ border-color: var(--plat-accent); color: var(--chalk); }
+
+  .login-overlay{
+    display:none; position:fixed; inset:0; background: rgba(8,9,11,0.85); backdrop-filter: blur(4px);
+    align-items:center; justify-content:center; z-index:200;
+  }
+  .login-overlay.show{ display:flex; }
+  .login-box{ background: var(--panel); border:1px solid var(--line); border-radius:10px; padding:34px 32px; width:320px; }
+  .login-box .eyebrow2{ font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color: var(--plat-accent); font-weight:700; margin-bottom:8px; }
+  .login-box h3{ font-size:18px; margin-bottom:18px; }
+  .login-box .text-input{ max-width:none; margin-bottom:12px; }
+  .login-box .hint{ font-size:11px; color: var(--chalk-dim); margin-top:4px; margin-bottom:18px; }
+  .login-actions{ display:flex; gap:10px; }
+  .login-actions button{ flex:1; padding:11px; border-radius:6px; font-size:13px; font-weight:700; border:none; }
+  .login-actions .cancel{ background:transparent; border:1px solid var(--line); color:var(--chalk-dim); }
+  .login-actions .enter{ background: var(--plat-accent); color:#101215; }
+
+  #publicView{ }
+  .site-frame{
+    max-width: 1040px; margin: 34px auto 0; border:1px solid var(--line); border-radius:10px; overflow:hidden;
+    box-shadow: 0 40px 80px -30px rgba(0,0,0,0.6);
+  }
+  .browser-chrome{ background: var(--panel); padding:12px 16px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--line); }
+  .browser-chrome .dot2{ width:8px; height:8px; border-radius:50%; background:var(--line); }
+  .browser-chrome .url{ margin-left:10px; font-family:'IBM Plex Mono'; font-size:11px; color:var(--chalk-dim); background:var(--bg); padding:5px 12px; border-radius:20px; flex:1; max-width:280px; }
+
+  .site-body{ background: #0C0D0F; }
+
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; padding: 20px 40px; border-bottom:1px solid var(--line); }
+  .site-logo-row{ display:flex; align-items:center; gap:12px; }
+  #logoPreview{ width:38px; height:38px; border-radius:8px; object-fit:cover; background: var(--brand); }
+  .no-logo{ width:38px; height:38px; border-radius:8px; background:var(--brand); display:flex; align-items:center; justify-content:center; font-family:'Anton'; color:#101215; font-size:16px; }
+  #gymNameNav{ font-family:'Anton'; font-size:19px; letter-spacing:0.02em; text-transform:uppercase; }
+  .site-links{ display:flex; gap:30px; font-size:13px; color:var(--chalk-dim); }
+  .site-links span:first-child{ color: var(--chalk); }
+
+  .site-hero{ padding: 74px 40px 60px; position:relative; overflow:hidden; }
+  .site-hero::after{
+    content:''; position:absolute; inset:0; z-index:0;
+    background: radial-gradient(680px 340px at 82% -10%, var(--brand-soft), transparent 70%);
+  }
+  .site-hero-inner{ position:relative; z-index:1; }
+  .hero-eyebrow{ color: var(--brand); font-size:12px; letter-spacing:0.16em; text-transform:uppercase; margin-bottom:16px; font-weight:700; }
+  .site-hero h1{ font-family:'Anton'; font-size: clamp(34px,5vw,54px); line-height:1.02; max-width:16ch; text-transform:uppercase; }
+  .site-hero p{ color:var(--chalk-dim); max-width:44ch; margin-top:18px; font-size:15px; line-height:1.65; }
+  .hero-buttons{ display:flex; gap:12px; margin-top:30px; }
+  .site-btn{ font-weight:700; font-size:13px; padding:13px 22px; border-radius:6px; border:none; }
+  .site-btn.primary{ background: var(--brand); color:#0C0D0F; }
+  .site-btn.ghost{ background:transparent; color:var(--chalk); border:1px solid var(--line); }
+
+  .site-section{ padding: 50px 40px; border-top:1px solid var(--line); }
+  .site-section-head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:26px; flex-wrap:wrap; gap:12px; }
+  .site-section-head h2{ font-family:'Anton'; font-size:26px; text-transform:uppercase; }
+  .site-section-head p{ color:var(--chalk-dim); font-size:13px; max-width:36ch; }
+
+  .day-plates{ display:flex; gap:8px; margin-bottom:22px; flex-wrap:wrap; }
+  .plate{
+    width:50px; height:50px; border-radius:50%; border:2px solid var(--line);
+    display:flex; align-items:center; justify-content:center; flex-direction:column;
+    font-family:'IBM Plex Mono'; font-size:10px; color:var(--chalk-dim); background:var(--panel);
+    transition:.15s ease;
+  }
+  .plate span{ font-size:8px; opacity:.7; }
+  .plate.active{ border-color:var(--brand); color:var(--brand); background: var(--brand-soft); }
+
+  .schedule-board{ background: var(--panel); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  .class-row{ display:grid; grid-template-columns: 84px 1fr auto auto; gap:16px; align-items:center; padding:16px 20px; border-bottom:1px solid var(--line); }
+  .class-row:last-child{ border-bottom:none; }
+  .class-time{ font-family:'IBM Plex Mono'; color:var(--brand); font-size:14px; }
+  .class-name{ font-weight:600; font-size:14px; }
+  .class-instr{ color:var(--chalk-dim); font-size:12px; margin-top:2px; }
+  .spots{ font-family:'IBM Plex Mono'; font-size:11px; color:var(--chalk-dim); text-align:right; }
+  .spots.low{ color: var(--brand-2); }
+  .book-btn{ font-weight:700; font-size:11px; padding:8px 14px; border-radius:5px; border:1px solid var(--brand); background:transparent; color:var(--brand); }
+  .book-btn.booked{ background:var(--brand); color:#0C0D0F; }
+  .book-btn.full{ border-color: var(--line); color: var(--chalk-dim); cursor:not-allowed; background:transparent; }
+
+  .contrast-warning{
+    display:none; align-items:center; gap:8px; margin-top:10px; font-size:12px; color:#E8A33D;
+    background: rgba(232,163,61,0.1); border:1px solid rgba(232,163,61,0.3); padding:8px 12px; border-radius:6px; max-width:340px;
+  }
+  .contrast-warning.show{ display:flex; }
+
+  .routine-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
+  @media (max-width:760px){ .routine-grid{ grid-template-columns:1fr; } .class-row{grid-template-columns: 64px 1fr auto;} .spots{display:none;} }
+  .routine-card{ background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:20px; }
+  .routine-card .tag{ color:var(--brand); font-size:11px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; }
+  .routine-card h3{ font-size:16px; margin-top:8px; }
+  .routine-card p{ font-size:12px; color:var(--chalk-dim); margin-top:6px; }
+
+  .site-footer{ padding: 30px 40px; display:flex; justify-content:space-between; color:var(--chalk-dim); font-size:12px; }
+
+  #adminView{ display:none; max-width:1040px; margin: 34px auto 60px; }
+  .admin-shell{ background: var(--panel); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .admin-body{ display:grid; grid-template-columns: 190px 1fr; min-height:520px; }
+  .admin-nav{ border-right:1px solid var(--line); padding:18px 0; }
+  .admin-nav .item{ padding:11px 22px; font-size:13px; color:var(--chalk-dim); cursor:pointer; border-left:2px solid transparent; }
+  .admin-nav .item.on{ color: var(--plat-accent); border-left:2px solid var(--plat-accent); background: rgba(201,162,39,0.06); }
+  .admin-content{ padding: 30px 34px; }
+  .admin-content h3{ font-size:17px; font-weight:700; margin-bottom:6px; }
+  .admin-content .sub{ color:var(--chalk-dim); font-size:13px; margin-bottom:26px; }
+
+  .field-block{ margin-bottom:26px; }
+  .field-label{ font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--chalk-dim); margin-bottom:10px; display:block; font-weight:600; }
+
+  .logo-upload{ display:flex; align-items:center; gap:16px; }
+  .logo-upload .preview-box{ width:64px; height:64px; border-radius:10px; border:1px dashed var(--line); display:flex; align-items:center; justify-content:center; overflow:hidden; background: var(--panel-2); }
+  .logo-upload .preview-box img{ width:100%; height:100%; object-fit:cover; }
+  .upload-btn{ background: var(--panel-2); border:1px solid var(--line); color:var(--chalk); font-size:12px; font-weight:600; padding:10px 16px; border-radius:6px; }
+  .upload-btn:hover{ border-color: var(--plat-accent); }
+  input[type="file"]{ display:none; }
+
+  .color-field{ display:flex; align-items:center; gap:14px; }
+  .swatch{ position:relative; width:40px; height:40px; border-radius:8px; overflow:hidden; border:1px solid var(--line); }
+  .swatch input[type="color"]{ position:absolute; inset:-4px; width:150%; height:150%; border:none; cursor:pointer; background:none; }
+  .color-field .hex{ font-family:'IBM Plex Mono'; font-size:13px; color:var(--chalk-dim); }
+
+  .text-input{ width:100%; max-width:340px; background: var(--panel-2); border:1px solid var(--line); border-radius:6px; padding:11px 14px; color:var(--chalk); font-size:14px; font-family:'Inter'; }
+  .text-input:focus{ outline:none; border-color: var(--plat-accent); }
+
+  .live-note{ display:flex; align-items:center; gap:8px; margin-top:6px; font-size:12px; color: var(--chalk-dim); }
+  .live-dot{ width:6px; height:6px; border-radius:50%; background:#3EC97B; animation: pulse 1.6s infinite; }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:.3;} }
+
+  .mini-row{ display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--line); font-size:13px; color:var(--chalk-dim); }
+  .mini-row b{ color:var(--chalk); font-weight:500; }
+  .pill{ font-family:'IBM Plex Mono'; font-size:11px; padding:3px 9px; border-radius:20px; background: rgba(201,162,39,0.12); color: var(--plat-accent); }
+
+  .goto-public{ margin-top:8px; background:transparent; border:1px solid var(--plat-accent); color:var(--plat-accent); font-size:12px; font-weight:700; padding:10px 16px; border-radius:6px; }
+</style>
+</head>
+<body>
+
+<div class="app-topbar">
+  <div class="brand-mark"><div class="dot"></div><span>Plataforma <b>FORMA</b> — demo</span></div>
+  <button class="owner-access" id="btnOwnerAccess">Acceso gimnasios →</button>
+</div>
+
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="eyebrow2">Solo gimnasios</div>
+    <h3>Acceso al panel de gestión</h3>
+    <input class="text-input" placeholder="Email del gimnasio" value="hola@crossfitrivas.com">
+    <input class="text-input" placeholder="Contraseña" type="password" value="••••••••">
+    <div class="hint">En producción, sin estas credenciales no se puede entrar — ni conociendo la URL.</div>
+    <div class="login-actions">
+      <button class="cancel" id="btnCancelLogin">Cancelar</button>
+      <button class="enter" id="btnEnterAdmin">Entrar</button>
+    </div>
+  </div>
+</div>
+
+<div id="publicView">
+  <div class="site-frame">
+    <div class="browser-chrome">
+      <div class="dot2"></div><div class="dot2"></div><div class="dot2"></div>
+      <div class="url mono" id="urlBar">crossfitrivas.forma.app</div>
+    </div>
+    <div class="site-body">
+      <div class="site-nav">
+        <div class="site-logo-row">
+          <div id="logoSlot"><div class="no-logo" id="noLogoFallback">CR</div></div>
+          <div id="gymNameNav">CrossFit Rivas</div>
+        </div>
+        <div class="site-links">
+          <span onclick="document.getElementById('schedSection').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;">Horarios</span>
+          <span onclick="document.getElementById('routinesSection').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;">Rutinas</span>
+          <span style="opacity:0.4; cursor:default;" title="Próximamente">Precios</span>
+          <span style="opacity:0.4; cursor:default;" title="Próximamente">Contacto</span>
+        </div>
+      </div>
+
+      <div class="site-hero">
+        <div class="site-hero-inner">
+          <div class="hero-eyebrow">Box de entrenamiento funcional</div>
+          <h1 id="gymNameHero">CrossFit Rivas</h1>
+          <p>Reserva tu clase, consulta tu rutina y sigue tu progreso desde el móvil. Todo lo que necesitas para entrenar con nosotros, en un solo sitio.</p>
+          <div class="hero-buttons">
+            <button class="site-btn primary">Reservar clase</button>
+            <button class="site-btn ghost">Ver rutinas</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="site-section" id="schedSection">
+        <div class="site-section-head">
+          <div><h2>Horario semanal</h2></div>
+          <p>Plazas en tiempo real. Reserva con un toque, cancela cuando quieras.</p>
+        </div>
+        <div class="day-plates" id="dayPlates"></div>
+        <div class="schedule-board" id="scheduleBoard"></div>
+      </div>
+
+      <div class="site-section" id="routinesSection">
+        <div class="site-section-head">
+          <div><h2>Rutinas activas</h2></div>
+          <p>Cada socio tiene la suya, subida por su entrenador.</p>
+        </div>
+        <div class="routine-grid">
+          <div class="routine-card">
+            <div class="tag">Fuerza · Tren superior</div>
+            <h3>Programa de Marta — Semana 4</h3>
+            <p>Press banca, press militar, fondos, elevaciones laterales.</p>
+          </div>
+          <div class="routine-card">
+            <div class="tag">Resistencia · Full body</div>
+            <h3>Programa de Iván — Semana 2</h3>
+            <p>Circuito metabólico, remo, sentadilla goblet, plancha.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="site-footer">
+        <span id="footerName">© CrossFit Rivas</span>
+        <span class="mono">hecho con FORMA</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="adminView">
+  <div class="admin-shell">
+    <div class="admin-body">
+      <div class="admin-nav">
+        <div class="item on" data-tab="personalizacion">Personalización</div>
+        <div class="item" data-tab="horarios">Horarios</div>
+        <div class="item" data-tab="rutinas">Rutinas</div>
+        <div class="item" data-tab="socios">Socios</div>
+      </div>
+
+      <div class="admin-content">
+
+        <div id="tab-personalizacion">
+          <h3>Personalización de tu web</h3>
+          <div class="sub">Estos cambios se aplican al instante en tu sitio público. Nadie más los toca — es tu web.</div>
+
+          <div class="field-block">
+            <span class="field-label">Nombre del gimnasio</span>
+            <input class="text-input" id="gymNameInput" value="CrossFit Rivas" maxlength="30">
+          </div>
+
+          <div class="field-block">
+            <span class="field-label">Logo</span>
+            <div class="logo-upload">
+              <div class="preview-box" id="previewBox"><span class="mono" style="font-size:10px;color:var(--chalk-dim)">Sin logo</span></div>
+              <div>
+                <label class="upload-btn" for="logoInput">Subir logo</label>
+                <input type="file" id="logoInput" accept="image/*">
+                <div class="live-note"><div class="live-dot"></div>Se actualiza en la vista pública</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-block">
+            <span class="field-label">Color principal</span>
+            <div class="color-field">
+              <div class="swatch"><input type="color" id="colorPrimary" value="#C9A227"></div>
+              <span class="hex mono" id="hexPrimary">#C9A227</span>
+            </div>
+            <div class="contrast-warning" id="warnPrimary">⚠ Este color puede ser difícil de leer sobre fondo oscuro. Prueba con un tono más claro o saturado.</div>
+          </div>
+
+          <div class="field-block">
+            <span class="field-label">Color secundario</span>
+            <div class="color-field">
+              <div class="swatch"><input type="color" id="colorSecondary" value="#C1443C"></div>
+              <span class="hex mono" id="hexSecondary">#C1443C</span>
+            </div>
+            <div class="contrast-warning" id="warnSecondary">⚠ Este color puede ser difícil de leer sobre fondo oscuro. Prueba con un tono más claro o saturado.</div>
+          </div>
+
+          <button class="goto-public" onclick="document.getElementById('btnOwnerAccess').click()">Ver cómo queda →</button>
+        </div>
+
+        <div id="tab-horarios" style="display:none;">
+          <h3>Clases de esta semana</h3>
+          <div class="sub">Edita horarios, aforo e instructor. Cambios visibles al momento para tus socios.</div>
+          <div class="mini-row"><span><b>Lun · 08:00</b> — CrossFit / Sara G.</span><span class="pill">11/20</span></div>
+          <div class="mini-row"><span><b>Lun · 18:30</b> — Spinning / Iván R.</span><span class="pill">14/15</span></div>
+          <div class="mini-row"><span><b>Mar · 10:00</b> — Yoga / Marta L.</span><span class="pill">6/12</span></div>
+          <div class="mini-row"><span><b>Mié · 19:00</b> — Funcional / Sara G.</span><span class="pill">20/20</span></div>
+          <div class="mini-row"><span><b>Jue · 08:00</b> — CrossFit / Sara G.</span><span class="pill">11/20</span></div>
+        </div>
+
+        <div id="tab-rutinas" style="display:none;">
+          <h3>Rutinas por socio</h3>
+          <div class="sub">Cada entrenador sube o edita la rutina de sus socios en texto libre.</div>
+          <div class="mini-row"><span><b>Marta Reyes</b> — Fuerza tren superior</span><span class="pill">Sem. 4/12</span></div>
+          <div class="mini-row"><span><b>Iván Costa</b> — Resistencia full body</span><span class="pill">Sem. 2/8</span></div>
+          <div class="mini-row"><span><b>Laura Gómez</b> — Pérdida de grasa</span><span class="pill">Sem. 1/10</span></div>
+        </div>
+
+        <div id="tab-socios" style="display:none;">
+          <h3>Socios activos</h3>
+          <div class="sub">Altas, bajas y estado de cuota, todo desde aquí.</div>
+          <div class="mini-row"><span><b>42 socios</b> activos este mes</span><span class="pill">+5 vs. mes anterior</span></div>
+          <div class="mini-row"><span><b>3 cuotas</b> pendientes de cobro</span><span class="pill">Revisar</span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const btnOwnerAccess = document.getElementById('btnOwnerAccess');
+  const loginOverlay = document.getElementById('loginOverlay');
+  const btnCancelLogin = document.getElementById('btnCancelLogin');
+  const btnEnterAdmin = document.getElementById('btnEnterAdmin');
+  const publicView = document.getElementById('publicView');
+  const adminView = document.getElementById('adminView');
+
+  btnCancelLogin.addEventListener('click', ()=> loginOverlay.classList.remove('show'));
+  btnEnterAdmin.addEventListener('click', ()=>{
+    loginOverlay.classList.remove('show');
+    publicView.style.display = 'none';
+    adminView.style.display = 'block';
+    btnOwnerAccess.textContent = '← Salir del panel';
+  });
+  btnOwnerAccess.addEventListener('click', ()=>{
+    if(adminView.style.display === 'block'){
+      adminView.style.display = 'none';
+      publicView.style.display = 'block';
+      btnOwnerAccess.textContent = 'Acceso gimnasios →';
+    } else {
+      loginOverlay.classList.add('show');
+    }
+  });
+
+  document.querySelectorAll('.admin-nav .item').forEach(item=>{
+    item.addEventListener('click', ()=>{
+      document.querySelectorAll('.admin-nav .item').forEach(i=>i.classList.remove('on'));
+      item.classList.add('on');
+      document.querySelectorAll('[id^="tab-"]').forEach(t=>t.style.display='none');
+      document.getElementById('tab-'+item.dataset.tab).style.display='block';
+    });
+  });
+
+  const gymNameInput = document.getElementById('gymNameInput');
+  const gymNameNav = document.getElementById('gymNameNav');
+  const gymNameHero = document.getElementById('gymNameHero');
+  const footerName = document.getElementById('footerName');
+  const noLogoFallback = document.getElementById('noLogoFallback');
+  const urlBar = document.getElementById('urlBar');
+
+  function slugify(s){
+    return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'').slice(0,20) || 'tugimnasio';
+  }
+
+  gymNameInput.addEventListener('input', ()=>{
+    const val = gymNameInput.value || 'Tu Gimnasio';
+    gymNameNav.textContent = val;
+    gymNameHero.textContent = val;
+    footerName.textContent = '© ' + val;
+    urlBar.textContent = slugify(val) + '.forma.app';
+    const initials = val.trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    noLogoFallback.textContent = initials || 'TG';
+  });
+
+  const logoInput = document.getElementById('logoInput');
+  const previewBox = document.getElementById('previewBox');
+  const logoSlot = document.getElementById('logoSlot');
+
+  logoInput.addEventListener('change', (e)=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev)=>{
+      previewBox.innerHTML = `<img src="${ev.target.result}">`;
+      logoSlot.innerHTML = `<img id="logoPreview" src="${ev.target.result}">`;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  const colorPrimary = document.getElementById('colorPrimary');
+  const colorSecondary = document.getElementById('colorSecondary');
+  const hexPrimary = document.getElementById('hexPrimary');
+  const hexSecondary = document.getElementById('hexSecondary');
+  const root = document.documentElement;
+
+  function hexToRgba(hex, a){
+    const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+    return `rgba(${r},${g},${b},${a})`;
+  }
+
+  // luminancia relativa vs. fondo oscuro (#0C0D0F) — aviso si el contraste es insuficiente
+  function relLuminance(hex){
+    const r = parseInt(hex.slice(1,3),16)/255, g = parseInt(hex.slice(3,5),16)/255, b = parseInt(hex.slice(5,7),16)/255;
+    const lin = c => c <= 0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4);
+    return 0.2126*lin(r) + 0.7152*lin(g) + 0.0722*lin(b);
+  }
+  function contrastRatio(hex, bgHex){
+    const L1 = relLuminance(hex), L2 = relLuminance(bgHex);
+    const light = Math.max(L1,L2), dark = Math.min(L1,L2);
+    return (light + 0.05) / (dark + 0.05);
+  }
+
+  const warnPrimary = document.getElementById('warnPrimary');
+  const warnSecondary = document.getElementById('warnSecondary');
+  const BG = '#0C0D0F';
+
+  colorPrimary.addEventListener('input', ()=>{
+    root.style.setProperty('--brand', colorPrimary.value);
+    root.style.setProperty('--brand-soft', hexToRgba(colorPrimary.value, 0.12));
+    hexPrimary.textContent = colorPrimary.value.toUpperCase();
+    warnPrimary.classList.toggle('show', contrastRatio(colorPrimary.value, BG) < 3);
+  });
+  colorSecondary.addEventListener('input', ()=>{
+    root.style.setProperty('--brand-2', colorSecondary.value);
+    hexSecondary.textContent = colorSecondary.value.toUpperCase();
+    warnSecondary.classList.toggle('show', contrastRatio(colorSecondary.value, BG) < 3);
+  });
+
+  const schedule = {
+    LUN: [
+      {time:'08:00', name:'CrossFit', instr:'Sara G.', spots:'11/20'},
+      {time:'09:00', name:'Yoga suave', instr:'Marta L.', spots:'6/12'},
+      {time:'18:30', name:'Spinning', instr:'Iván R.', spots:'14/15', low:true},
+      {time:'19:30', name:'Funcional', instr:'Sara G.', spots:'20/20', low:true},
+    ],
+    MAR: [
+      {time:'09:00', name:'Pilates', instr:'Marta L.', spots:'5/12'},
+      {time:'18:00', name:'Boxeo', instr:'Iván R.', spots:'10/16'},
+      {time:'19:00', name:'CrossFit', instr:'Sara G.', spots:'19/20', low:true},
+    ],
+    MIÉ: [
+      {time:'08:00', name:'CrossFit', instr:'Sara G.', spots:'8/20'},
+      {time:'10:00', name:'Yoga', instr:'Marta L.', spots:'9/12'},
+      {time:'19:00', name:'Funcional', instr:'Sara G.', spots:'20/20', low:true},
+    ],
+    JUE: [
+      {time:'08:00', name:'CrossFit', instr:'Sara G.', spots:'11/20'},
+      {time:'18:30', name:'Spinning', instr:'Iván R.', spots:'15/15', low:true},
+    ],
+    VIE: [
+      {time:'09:00', name:'Yoga suave', instr:'Marta L.', spots:'4/12'},
+      {time:'18:00', name:'Boxeo', instr:'Iván R.', spots:'7/16'},
+      {time:'19:00', name:'CrossFit', instr:'Sara G.', spots:'20/20', low:true},
+    ],
+    SÁB: [
+      {time:'10:00', name:'Funcional', instr:'Sara G.', spots:'12/20'},
+    ],
+  };
+
+  const days = Object.keys(schedule);
+  const platesEl = document.getElementById('dayPlates');
+  const boardEl = document.getElementById('scheduleBoard');
+  const booked = new Set();
+
+  function renderPlates(active){
+    platesEl.innerHTML = days.map(d => `
+      <div class="plate ${d===active?'active':''}" data-day="${d}">${d}<span>${schedule[d].length}</span></div>
+    `).join('');
+    platesEl.querySelectorAll('.plate').forEach(p=>{
+      p.addEventListener('click', ()=>{ renderPlates(p.dataset.day); renderBoard(p.dataset.day); });
+    });
+  }
+
+  function isFull(spots){
+    const [taken, total] = spots.split('/').map(Number);
+    return taken >= total;
+  }
+
+  function renderBoard(day){
+    boardEl.innerHTML = schedule[day].map((c,i)=>{
+      const key = day+i;
+      const isBooked = booked.has(key);
+      const full = isFull(c.spots) && !isBooked;
+      let label = 'Reservar';
+      let cls = '';
+      if(isBooked){ label = 'Reservado ✓'; cls = 'booked'; }
+      else if(full){ label = 'Completo'; cls = 'full'; }
+      return `
+      <div class="class-row">
+        <div class="class-time mono">${c.time}</div>
+        <div><div class="class-name">${c.name}</div><div class="class-instr">${c.instr}</div></div>
+        <div class="spots ${c.low?'low':''} mono">${c.spots}</div>
+        <button class="book-btn ${cls}" data-key="${key}" ${full?'disabled':''}>${label}</button>
+      </div>`;
+    }).join('');
+    boardEl.querySelectorAll('.book-btn:not(.full)').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const key = btn.dataset.key;
+        if(booked.has(key)){ booked.delete(key); btn.classList.remove('booked'); btn.textContent='Reservar'; }
+        else{ booked.add(key); btn.classList.add('booked'); btn.textContent='Reservado ✓'; }
+      });
+    });
+  }
+
+  renderPlates('LUN');
+  renderBoard('LUN');
+</script>
+
+</body>
+</html>
