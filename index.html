@@ -15,7 +15,7 @@
     --chalk-dim: #93969C;
     --line: #2A2E35;
     --plat-accent: #C9A227;
-
+ 
     --brand: #C9A227;
     --brand-2: #C1443C;
     --brand-soft: rgba(201,162,39,0.12);
@@ -35,7 +35,7 @@
   .display{ font-family:'Anton', sans-serif; text-transform:uppercase; letter-spacing:0.01em; }
   img{ max-width:100%; display:block; }
   button{ font-family:inherit; cursor:pointer; }
-
+ 
   .app-topbar{
     display:flex; align-items:center; justify-content:space-between;
     padding: 16px 5vw; border-bottom:1px solid var(--line);
@@ -45,17 +45,17 @@
   .brand-mark .dot{ width:9px; height:9px; border-radius:50%; background: var(--plat-accent); }
   .brand-mark span{ font-size:13px; letter-spacing:0.14em; color: var(--chalk-dim); text-transform:uppercase; }
   .brand-mark b{ color: var(--chalk); }
-
+ 
   .view-switch{ display:flex; gap:2px; background: var(--panel); border:1px solid var(--line); border-radius:6px; padding:3px; }
   .view-switch button{
     background:transparent; border:none; color:var(--chalk-dim); font-size:13px; font-weight:600;
     padding:9px 18px; border-radius:4px; transition: all .15s ease;
   }
   .view-switch button.on{ background: var(--panel-2); color: var(--chalk); }
-
+ 
   .owner-access{ font-size:12px; color: var(--chalk-dim); background:transparent; border:1px solid var(--line); padding:9px 16px; border-radius:6px; transition: all .2s var(--ease); }
   .owner-access:hover{ border-color: var(--plat-accent); color: var(--chalk); transform: translateY(-1px); }
-
+ 
   .login-overlay{
     display:none; position:fixed; inset:0; background: rgba(8,9,11,0.85); backdrop-filter: blur(6px);
     align-items:center; justify-content:center; z-index:200;
@@ -78,7 +78,7 @@
   .login-actions .cancel:hover{ border-color: var(--chalk-dim); color: var(--chalk); }
   .login-actions .enter{ background: var(--plat-accent); color:#101215; }
   .login-actions .enter:hover{ transform: translateY(-1px); box-shadow: 0 8px 20px -6px rgba(201,162,39,0.4); }
-
+ 
   #publicView{ }
   .site-frame{
     max-width: 1040px; margin: 34px auto 0; border:1px solid var(--line); border-radius:12px; overflow:hidden;
@@ -88,10 +88,10 @@
   .browser-chrome{ background: var(--panel); padding:12px 16px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--line); }
   .browser-chrome .dot2{ width:8px; height:8px; border-radius:50%; background:var(--line); }
   .browser-chrome .url{ margin-left:10px; font-family:'IBM Plex Mono'; font-size:11px; color:var(--chalk-dim); background:var(--bg); padding:5px 12px; border-radius:20px; flex:1; max-width:280px; }
-
+ 
   .site-body{ background: #0C0D0F; }
-
-  .site-nav{ display:flex; align-items:center; justify-content:space-between; padding: 22px 40px; border-bottom:1px solid var(--line); }
+ 
+  .site-nav{ display:flex; align-items:center; justify-content:space-between; padding: 22px 40px; border-bottom:1px solid var(--line); position:sticky; top:0; background:rgba(12,13,15,0.92); backdrop-filter: blur(10px); z-index:40; }
   .site-logo-row{ display:flex; align-items:center; gap:12px; }
   #logoPreview{ width:38px; height:38px; border-radius:9px; object-fit:cover; background: var(--brand); transition: all .3s var(--ease); }
   .no-logo{ width:38px; height:38px; border-radius:9px; background:var(--brand); display:flex; align-items:center; justify-content:center; font-family:'Anton'; color:#101215; font-size:16px; box-shadow: 0 4px 12px -2px var(--brand-soft); transition: all .3s var(--ease); }
@@ -100,7 +100,7 @@
   .site-links span{ transition: color .2s var(--ease); }
   .site-links span:hover:not([style*="0.4"]){ color: var(--brand); }
   .site-links span:first-child{ color: var(--chalk); }
-
+ 
   .site-hero{ padding: 90px 40px 80px; position:relative; overflow:hidden; display:grid; grid-template-columns: 1.15fr 0.85fr; gap:50px; align-items:center; }
   .site-hero::before{
     content:''; position:absolute; top:-180px; left:-120px; width:420px; height:420px; border-radius:50%;
@@ -121,7 +121,7 @@
   .site-hero h1{ font-family:'Anton'; font-size: clamp(38px,5.4vw,62px); line-height:0.94; max-width:14ch; text-transform:uppercase; letter-spacing:0.005em; }
   .site-hero p{ color:var(--chalk-dim); max-width:46ch; margin-top:22px; font-size:16px; line-height:1.75; }
   .hero-buttons{ display:flex; gap:14px; margin-top:36px; }
-
+ 
   .hero-float{
     position:relative; z-index:1; background: rgba(30,33,39,0.55); border:1px solid rgba(255,255,255,0.08);
     border-radius:16px; padding:26px; backdrop-filter: blur(20px) saturate(140%);
@@ -141,16 +141,17 @@
   .hero-float .hf-spots{ font-family:'IBM Plex Mono'; font-size:11px; color:var(--chalk-dim); }
   .hero-float .hf-cta{ margin-top:18px; width:100%; background: var(--brand); color:#0C0D0F; border:none; padding:12px; border-radius:8px; font-weight:700; font-size:13px; }
   .site-btn{ font-weight:700; font-size:14px; padding:16px 28px; border-radius:8px; border:none; transition: all .25s var(--ease); }
-  .site-btn.primary{ background: var(--brand); color:#0C0D0F; box-shadow: 0 6px 16px -4px var(--brand-soft); }
+  .site-btn.primary{ background: linear-gradient(180deg, color-mix(in srgb, var(--brand) 80%, white) 0%, var(--brand) 100%); color:#0C0D0F; box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 8px 20px -8px var(--brand-soft); }
   .site-btn.primary:hover{ transform: translateY(-2px); box-shadow: 0 10px 24px -6px rgba(201,162,39,0.35); filter: brightness(1.06); }
   .site-btn.ghost{ background:transparent; color:var(--chalk); border:1px solid var(--line); }
   .site-btn.ghost:hover{ border-color: var(--chalk-dim); transform: translateY(-2px); }
-
-  .site-section{ padding: 64px 40px; border-top:1px solid var(--line); }
+ 
+  .site-section{ padding: 64px 40px; border-top:1px solid var(--line); opacity:0; transform: translateY(16px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+  .site-section.in-view{ opacity:1; transform:none; }
   .site-section-head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:32px; flex-wrap:wrap; gap:12px; }
   .site-section-head h2{ font-family:'Anton'; font-size:28px; text-transform:uppercase; letter-spacing:0.01em; }
   .site-section-head p{ color:var(--chalk-dim); font-size:13.5px; max-width:36ch; }
-
+ 
   .day-plates{ display:flex; gap:8px; margin-bottom:22px; flex-wrap:wrap; }
   .plate{
     width:50px; height:50px; border-radius:50%; border:2px solid var(--line);
@@ -161,7 +162,7 @@
   .plate:hover{ border-color: var(--brand-2, var(--line)); transform: translateY(-2px); }
   .plate span{ font-size:8px; opacity:.7; }
   .plate.active{ border-color:var(--brand); color:var(--brand); background: var(--brand-soft); box-shadow: 0 6px 16px -6px var(--brand-soft); }
-
+ 
   .schedule-board{ background: var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
   .class-row{ display:grid; grid-template-columns: 84px 1fr auto auto; gap:16px; align-items:center; padding:18px 24px; border-bottom:1px solid var(--line); transition: background .2s var(--ease); }
   .class-row:hover{ background: rgba(255,255,255,0.02); }
@@ -178,13 +179,13 @@
   .book-btn.waitlist{ border-color:#5B8DEF; color:#5B8DEF; cursor:pointer; }
   .book-btn.waitlist:hover{ background:#5B8DEF; color:#fff; }
   .book-btn.waitlisted{ background:#5B8DEF; color:#fff; border-color:#5B8DEF; cursor:pointer; }
-
+ 
   .streak-badge{
     display:inline-flex; align-items:center; gap:6px; background: rgba(201,162,39,0.12);
     border:1px solid rgba(201,162,39,0.3); color: var(--brand); font-size:11px; font-weight:700;
     padding:5px 11px; border-radius:20px; margin-top:10px;
   }
-
+ 
   .stats-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; margin-bottom:26px; }
   .stat-card{ background: var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:18px; transition: all .25s var(--ease); }
   .stat-card:hover{ transform: translateY(-2px); border-color: rgba(255,255,255,0.12); }
@@ -195,13 +196,13 @@
   .bar-track{ flex:1; height:8px; background: var(--panel-2); border-radius:20px; overflow:hidden; }
   .bar-fill{ height:100%; background: linear-gradient(90deg, var(--plat-accent), #E0BB4A); border-radius:20px; transition: width 1s var(--ease); }
   .bar-pct{ font-family:'IBM Plex Mono'; font-size:11px; color: var(--chalk-dim); width:36px; text-align:right; }
-
+ 
   .contrast-warning{
     display:none; align-items:center; gap:8px; margin-top:10px; font-size:12px; color:#E8A33D;
     background: rgba(232,163,61,0.1); border:1px solid rgba(232,163,61,0.3); padding:8px 12px; border-radius:6px; max-width:340px;
   }
   .contrast-warning.show{ display:flex; }
-
+ 
   .routine-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
   @media (max-width:760px){ .routine-grid{ grid-template-columns:1fr; } .class-row{grid-template-columns: 64px 1fr auto;} .spots{display:none;} }
   .routine-card{ background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:24px; transition: all .3s var(--ease); }
@@ -209,9 +210,58 @@
   .routine-card .tag{ color:var(--brand); font-size:11px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; }
   .routine-card h3{ font-size:16px; margin-top:8px; }
   .routine-card p{ font-size:12px; color:var(--chalk-dim); margin-top:6px; }
-
+ 
   .site-footer{ padding: 30px 40px; display:flex; justify-content:space-between; color:var(--chalk-dim); font-size:12px; }
-
+ 
+  /* ---------- avisos ---------- */
+  .notice-feed{ display:flex; flex-direction:column; gap:12px; }
+  .notice-item{ display:flex; gap:16px; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 20px; transition: all .25s var(--ease); }
+  .notice-item:hover{ border-color: rgba(255,255,255,0.14); transform: translateX(3px); }
+  .notice-icon{ width:38px; height:38px; border-radius:9px; background:var(--brand-soft); color:var(--brand); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .notice-icon svg{ width:18px; height:18px; }
+  .notice-item.urgent .notice-icon{ background: rgba(193,68,60,0.14); color:#E06C63; }
+  .notice-body{ flex:1; }
+  .notice-top{ display:flex; justify-content:space-between; gap:10px; align-items:baseline; }
+  .notice-title{ font-size:14px; font-weight:600; }
+  .notice-date{ font-family:'IBM Plex Mono'; font-size:11px; color:var(--chalk-dim); white-space:nowrap; }
+  .notice-text{ font-size:13px; color:var(--chalk-dim); margin-top:4px; line-height:1.5; }
+  .notice-del{ background:transparent; border:1px solid var(--line); color:var(--chalk-dim); font-size:11px; padding:5px 10px; border-radius:5px; flex-shrink:0; }
+  .notice-del:hover{ border-color:#E06C63; color:#E06C63; }
+ 
+  /* ---------- precios ---------- */
+  .pricing-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; }
+  @media (max-width:860px){ .pricing-grid{ grid-template-columns:1fr; } }
+  .price-card{ background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:28px; transition: all .3s var(--ease); position:relative; }
+  .price-card:hover{ transform: translateY(-3px); border-color: rgba(255,255,255,0.14); }
+  .price-card.featured{ border-color: var(--brand); box-shadow: 0 20px 40px -20px var(--brand-soft); }
+  .price-badge{ position:absolute; top:-12px; right:24px; background: var(--brand); color:#0C0D0F; font-size:11px; font-weight:700; padding:5px 12px; border-radius:20px; text-transform:uppercase; letter-spacing:0.04em; }
+  .price-name{ font-size:13px; color:var(--chalk-dim); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:14px; }
+  .price-amount{ display:flex; align-items:baseline; gap:6px; margin-bottom:6px; }
+  .price-amount .num{ font-family:'Anton'; font-size:38px; }
+  .price-amount .per{ font-size:13px; color:var(--chalk-dim); }
+  .price-desc{ font-size:12.5px; color:var(--chalk-dim); margin-bottom:20px; }
+  .price-features{ list-style:none; margin-bottom:24px; }
+  .price-features li{ font-size:13px; padding:8px 0; border-top:1px solid var(--line); display:flex; align-items:center; gap:10px; }
+  .price-features li::before{ content:'✓'; color: var(--brand); font-weight:700; }
+  .price-cta{ width:100%; padding:12px; border-radius:8px; font-weight:700; font-size:13px; border:1px solid var(--line); background:transparent; color:var(--chalk); transition: all .2s var(--ease); }
+  .price-card.featured .price-cta{ background: var(--brand); color:#0C0D0F; border:none; }
+  .price-cta:hover{ transform: translateY(-1px); }
+ 
+  /* ---------- contacto ---------- */
+  .contact-wrap{ display:grid; grid-template-columns: 1fr 1fr; gap:40px; align-items:start; }
+  @media (max-width:860px){ .contact-wrap{ grid-template-columns:1fr; } }
+  .contact-info-item{ display:flex; gap:14px; align-items:flex-start; margin-bottom:22px; }
+  .contact-icon{ width:38px; height:38px; border-radius:10px; background: var(--brand-soft); color: var(--brand); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .contact-icon svg{ width:18px; height:18px; }
+  .contact-info-item .ci-label{ font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--chalk-dim); margin-bottom:3px; }
+  .contact-info-item .ci-val{ font-size:14px; font-weight:500; }
+  .contact-form{ background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:26px; }
+  .contact-form .text-input{ max-width:none; margin-bottom:12px; }
+  .contact-form textarea{ width:100%; background: var(--panel-2); border:1px solid var(--line); border-radius:6px; padding:11px 14px; color:var(--chalk); font-size:14px; font-family:'Inter'; margin-bottom:14px; resize:vertical; min-height:90px; transition: all .2s var(--ease); }
+  .contact-form textarea:focus{ outline:none; border-color: var(--plat-accent); box-shadow: 0 0 0 3px rgba(201,162,39,0.1); }
+  .contact-submit{ width:100%; background: var(--brand); color:#0C0D0F; border:none; padding:13px; border-radius:8px; font-weight:700; font-size:13px; transition: all .2s var(--ease); }
+  .contact-submit:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px -8px var(--brand-soft); }
+ 
   /* ---------- reto del mes ---------- */
   .challenge-card{
     background: linear-gradient(135deg, var(--panel) 0%, var(--panel-2) 100%);
@@ -228,7 +278,7 @@
   .challenge-days{ text-align:right; }
   .challenge-days .num{ font-family:'IBM Plex Mono'; font-size:32px; color:var(--brand); line-height:1; }
   .challenge-days .lbl{ font-size:11px; color:var(--chalk-dim); text-transform:uppercase; letter-spacing:0.06em; }
-
+ 
   .leaderboard{ position:relative; z-index:1; }
   .lb-row{ display:flex; align-items:center; gap:14px; padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.06); }
   .lb-row:last-child{ border-bottom:none; }
@@ -239,7 +289,7 @@
   .lb-name{ flex:1; font-size:13.5px; font-weight:500; }
   .lb-score{ font-family:'IBM Plex Mono'; font-size:13px; color: var(--chalk-dim); }
   .lb-row.top .lb-score{ color: var(--chalk); font-weight:600; }
-
+ 
   /* ---------- récords personales ---------- */
   .pr-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:14px; }
   @media (max-width:760px){ .pr-grid{ grid-template-columns: repeat(2,1fr); } .challenge-top{flex-direction:column;} }
@@ -248,7 +298,7 @@
   .pr-card .pr-lift{ font-size:12px; color:var(--chalk-dim); text-transform:uppercase; letter-spacing:0.05em; }
   .pr-card .pr-val{ font-family:'IBM Plex Mono'; font-size:24px; color:var(--chalk); margin-top:8px; }
   .pr-card .pr-delta{ font-size:11px; color:#3EC97B; margin-top:4px; }
-
+ 
   #adminView{ display:none; max-width:1040px; margin: 34px auto 60px; animation: fadeIn .3s var(--ease); }
   .admin-shell{ background: var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden; box-shadow: 0 24px 48px -20px rgba(0,0,0,0.5); }
   .admin-body{ display:grid; grid-template-columns: 190px 1fr; min-height:520px; }
@@ -259,45 +309,63 @@
   .admin-content{ padding: 30px 34px; }
   .admin-content h3{ font-size:17px; font-weight:700; margin-bottom:6px; }
   .admin-content .sub{ color:var(--chalk-dim); font-size:13px; margin-bottom:26px; }
-
+ 
   .field-block{ margin-bottom:26px; }
   .field-label{ font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--chalk-dim); margin-bottom:10px; display:block; font-weight:600; }
-
+ 
   .logo-upload{ display:flex; align-items:center; gap:16px; }
   .logo-upload .preview-box{ width:64px; height:64px; border-radius:10px; border:1px dashed var(--line); display:flex; align-items:center; justify-content:center; overflow:hidden; background: var(--panel-2); }
   .logo-upload .preview-box img{ width:100%; height:100%; object-fit:cover; }
   .upload-btn{ background: var(--panel-2); border:1px solid var(--line); color:var(--chalk); font-size:12px; font-weight:600; padding:10px 16px; border-radius:6px; }
   .upload-btn:hover{ border-color: var(--plat-accent); }
   input[type="file"]{ display:none; }
-
+ 
   .color-field{ display:flex; align-items:center; gap:14px; }
   .swatch input[type="color"]{ position:absolute; inset:-4px; width:150%; height:150%; border:none; cursor:pointer; background:none; }
   .color-field .hex{ font-family:'IBM Plex Mono'; font-size:13px; color:var(--chalk-dim); }
-
+ 
   .text-input{ width:100%; max-width:340px; background: var(--panel-2); border:1px solid var(--line); border-radius:6px; padding:11px 14px; color:var(--chalk); font-size:14px; font-family:'Inter'; transition: all .2s var(--ease); }
   .text-input:focus{ outline:none; border-color: var(--plat-accent); box-shadow: 0 0 0 3px rgba(201,162,39,0.1); }
-
+ 
   .swatch{ position:relative; width:40px; height:40px; border-radius:8px; overflow:hidden; border:1px solid var(--line); transition: transform .2s var(--ease); }
   .swatch:hover{ transform: scale(1.06); }
-
+ 
   .live-note{ display:flex; align-items:center; gap:8px; margin-top:6px; font-size:12px; color: var(--chalk-dim); }
   .live-dot{ width:6px; height:6px; border-radius:50%; background:#3EC97B; animation: pulse 1.6s infinite; }
   @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:.3;} }
-
+ 
   .mini-row{ display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid var(--line); font-size:13px; color:var(--chalk-dim); }
   .mini-row b{ color:var(--chalk); font-weight:500; }
   .pill{ font-family:'IBM Plex Mono'; font-size:11px; padding:3px 9px; border-radius:20px; background: rgba(201,162,39,0.12); color: var(--plat-accent); }
-
+ 
   .goto-public{ margin-top:8px; background:transparent; border:1px solid var(--plat-accent); color:var(--plat-accent); font-size:12px; font-weight:700; padding:10px 16px; border-radius:6px; }
+ 
+  /* ---------- ajustes m\u00f3vil adicionales ---------- */
+  @media (max-width:640px){
+    .site-nav{ padding:16px 20px; flex-wrap:wrap; gap:12px; }
+    .site-links{ gap:18px; font-size:12px; flex-wrap:wrap; }
+    .site-section{ padding:44px 20px; }
+    .stats-grid{ grid-template-columns:1fr 1fr; gap:10px; }
+    .bar-row .bar-label{ width:78px; font-size:11px; }
+    .admin-body{ grid-template-columns:1fr; min-height:auto; }
+    .admin-nav{ border-right:none; border-bottom:1px solid var(--line); display:flex; overflow-x:auto; padding:10px 14px; gap:4px; }
+    .admin-nav .item{ white-space:nowrap; border-left:none; border-bottom:2px solid transparent; padding:10px 14px; }
+    .admin-nav .item.on{ border-left:none; border-bottom:2px solid var(--plat-accent); }
+    .admin-content{ padding:22px 20px; }
+    .notice-top{ flex-direction:column; align-items:flex-start; gap:2px; }
+    .app-topbar{ padding:14px 20px; }
+    .site-hero{ padding:48px 20px 40px; }
+    .hero-float{ padding:20px; }
+  }
 </style>
 </head>
 <body>
-
+ 
 <div class="app-topbar">
   <div class="brand-mark"><div class="dot"></div><span>Plataforma <b>FORMA</b> — demo</span></div>
   <button class="owner-access" id="btnOwnerAccess">Acceso gimnasios →</button>
 </div>
-
+ 
 <div class="login-overlay" id="loginOverlay">
   <div class="login-box">
     <div class="eyebrow2">Solo gimnasios</div>
@@ -311,7 +379,7 @@
     </div>
   </div>
 </div>
-
+ 
 <div id="publicView">
   <div class="site-frame">
     <div class="browser-chrome">
@@ -325,13 +393,13 @@
           <div id="gymNameNav">CrossFit Rivas</div>
         </div>
         <div class="site-links">
+          <span onclick="document.getElementById('noticesSection').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;">Avisos</span>
           <span onclick="document.getElementById('schedSection').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;">Horarios</span>
           <span onclick="document.getElementById('routinesSection').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;">Rutinas</span>
-          <span style="opacity:0.4; cursor:default;" title="Próximamente">Precios</span>
-          <span style="opacity:0.4; cursor:default;" title="Próximamente">Contacto</span>
+          <span onclick="document.getElementById('contactSection').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;">Contacto</span>
         </div>
       </div>
-
+ 
       <div class="site-hero">
         <div class="site-hero-inner">
           <div class="hero-eyebrow">Box de entrenamiento funcional</div>
@@ -367,7 +435,16 @@
           <button class="hf-cta" onclick="document.getElementById('schedSection').scrollIntoView({behavior:'smooth'})">Ver horario y reservar</button>
         </div>
       </div>
-
+ 
+      <div class="site-section" id="noticesSection">
+        <div class="site-section-head">
+          <div><h2>Avisos</h2></div>
+          <p>Novedades del gimnasio, directo aquí — nada se pierde entre mensajes de WhatsApp.</p>
+        </div>
+        <div class="notice-feed" id="noticeFeed"></div>
+        <button class="site-btn ghost" id="btnMoreNotices" style="margin-top:16px; display:none;">Ver más avisos</button>
+      </div>
+ 
       <div class="site-section" id="schedSection">
         <div class="site-section-head">
           <div><h2>Horario semanal</h2></div>
@@ -376,7 +453,7 @@
         <div class="day-plates" id="dayPlates"></div>
         <div class="schedule-board" id="scheduleBoard"></div>
       </div>
-
+ 
       <div class="site-section" id="routinesSection">
         <div class="site-section-head">
           <div><h2>Rutinas activas</h2></div>
@@ -397,13 +474,13 @@
           </div>
         </div>
       </div>
-
+ 
       <div class="site-section">
         <div class="site-section-head">
           <div><h2>Reto del mes</h2></div>
           <p>Toda la comunidad compitiendo por lo mismo. Se actualiza con cada clase.</p>
         </div>
-
+ 
         <div class="challenge-card">
           <div class="challenge-top">
             <div>
@@ -416,9 +493,9 @@
               <div class="lbl">de 1.000</div>
             </div>
           </div>
-
+ 
           <div class="bar-track" style="margin-bottom:22px; position:relative; z-index:1;"><div class="bar-fill" style="width:64.7%;"></div></div>
-
+ 
           <div class="leaderboard">
             <div class="lb-row top">
               <span class="lb-rank">01</span>
@@ -447,7 +524,7 @@
           </div>
         </div>
       </div>
-
+ 
       <div class="site-section">
         <div class="site-section-head">
           <div><h2>Récords personales</h2></div>
@@ -460,7 +537,37 @@
           <div class="pr-card"><div class="pr-lift">Dominadas</div><div class="pr-val">8 reps</div><div class="pr-delta">↑ +2 este mes</div></div>
         </div>
       </div>
-
+ 
+      <div class="site-section" id="contactSection">
+        <div class="site-section-head">
+          <div><h2>Contacto</h2></div>
+          <p>¿Dudas antes de empezar? Escríbenos.</p>
+        </div>
+ 
+        <div class="contact-wrap">
+          <div>
+            <div class="contact-info-item">
+              <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+              <div><div class="ci-label">Email</div><div class="ci-val">hola@crossfitrivas.com</div></div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.6 7-11.5A7 7 0 105 9.5C5 14.4 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg></div>
+              <div><div class="ci-label">Dirección</div><div class="ci-val">C/ Ejemplo 12, Rivas-Vaciamadrid</div></div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
+              <div><div class="ci-label">Horario de atención</div><div class="ci-val">Lun–Vie, 8:00–21:00</div></div>
+            </div>
+          </div>
+          <div class="contact-form">
+            <input class="text-input" placeholder="Tu nombre">
+            <input class="text-input" placeholder="Tu email">
+            <textarea placeholder="¿En qué podemos ayudarte?"></textarea>
+            <button class="contact-submit" onclick="alert('En la versión real, esto enviaría el mensaje al gimnasio.')">Enviar mensaje</button>
+          </div>
+        </div>
+      </div>
+ 
       <div class="site-footer">
         <span id="footerName">© CrossFit Rivas</span>
         <span class="mono">hecho con FORMA</span>
@@ -468,7 +575,7 @@
     </div>
   </div>
 </div>
-
+ 
 <div id="adminView">
   <div class="admin-shell">
     <div class="admin-body">
@@ -478,19 +585,20 @@
         <div class="item" data-tab="horarios">Horarios</div>
         <div class="item" data-tab="rutinas">Rutinas</div>
         <div class="item" data-tab="socios">Socios</div>
+        <div class="item" data-tab="avisos">Avisos</div>
       </div>
-
+ 
       <div class="admin-content">
-
+ 
         <div id="tab-personalizacion">
           <h3>Personalización de tu web</h3>
           <div class="sub">Estos cambios se aplican al instante en tu sitio público. Nadie más los toca — es tu web.</div>
-
+ 
           <div class="field-block">
             <span class="field-label">Nombre del gimnasio</span>
             <input class="text-input" id="gymNameInput" value="CrossFit Rivas" maxlength="30">
           </div>
-
+ 
           <div class="field-block">
             <span class="field-label">Logo</span>
             <div class="logo-upload">
@@ -502,7 +610,7 @@
               </div>
             </div>
           </div>
-
+ 
           <div class="field-block">
             <span class="field-label">Color principal</span>
             <div class="color-field">
@@ -511,7 +619,7 @@
             </div>
             <div class="contrast-warning" id="warnPrimary">⚠ Este color puede ser difícil de leer sobre fondo oscuro. Prueba con un tono más claro o saturado.</div>
           </div>
-
+ 
           <div class="field-block">
             <span class="field-label">Color secundario</span>
             <div class="color-field">
@@ -520,30 +628,30 @@
             </div>
             <div class="contrast-warning" id="warnSecondary">⚠ Este color puede ser difícil de leer sobre fondo oscuro. Prueba con un tono más claro o saturado.</div>
           </div>
-
+ 
           <button class="goto-public" onclick="document.getElementById('btnOwnerAccess').click()">Ver cómo queda →</button>
         </div>
-
+ 
         <div id="tab-estadisticas" style="display:none;">
           <h3>Cómo va tu gimnasio</h3>
           <div class="sub">Datos que con Excel o WhatsApp no se ven de un vistazo — aquí sí, cada vez que entras.</div>
-
+ 
           <div class="stats-grid">
             <div class="stat-card"><div class="num">78%</div><div class="lbl">Ocupación media semanal</div></div>
             <div class="stat-card"><div class="num">42</div><div class="lbl">Socios activos</div></div>
             <div class="stat-card"><div class="num">6</div><div class="lbl">En lista de espera esta semana</div></div>
           </div>
-
+ 
           <div class="field-label" style="margin-bottom:14px;">Ocupación por clase (últimos 7 días)</div>
           <div class="bar-row"><div class="bar-label">CrossFit 08:00</div><div class="bar-track"><div class="bar-fill" style="width:92%;"></div></div><div class="bar-pct mono">92%</div></div>
           <div class="bar-row"><div class="bar-label">Funcional 19:00</div><div class="bar-track"><div class="bar-fill" style="width:100%;"></div></div><div class="bar-pct mono">100%</div></div>
           <div class="bar-row"><div class="bar-label">Spinning 18:30</div><div class="bar-track"><div class="bar-fill" style="width:94%;"></div></div><div class="bar-pct mono">94%</div></div>
           <div class="bar-row"><div class="bar-label">Yoga suave</div><div class="bar-track"><div class="bar-fill" style="width:48%;"></div></div><div class="bar-pct mono">48%</div></div>
           <div class="bar-row"><div class="bar-label">Pilates</div><div class="bar-track"><div class="bar-fill" style="width:41%;"></div></div><div class="bar-pct mono">41%</div></div>
-
+ 
           <div class="live-note" style="margin-top:18px;">💡 Yoga y Pilates tienen hueco de sobra — podrías mover esa franja a una clase con más demanda, o promocionarla aparte.</div>
         </div>
-
+ 
         <div id="tab-horarios" style="display:none;">
           <h3>Clases de esta semana</h3>
           <div class="sub">Edita horarios, aforo e instructor. Cambios visibles al momento para tus socios.</div>
@@ -553,7 +661,7 @@
           <div class="mini-row"><span><b>Mié · 19:00</b> — Funcional / Sara G.</span><span class="pill">20/20</span></div>
           <div class="mini-row"><span><b>Jue · 08:00</b> — CrossFit / Sara G.</span><span class="pill">11/20</span></div>
         </div>
-
+ 
         <div id="tab-rutinas" style="display:none;">
           <h3>Rutinas por socio</h3>
           <div class="sub">Cada entrenador sube o edita la rutina de sus socios en texto libre.</div>
@@ -561,11 +669,11 @@
           <div class="mini-row"><span><b>Iván Costa</b> — Resistencia full body</span><span class="pill">Sem. 2/8</span></div>
           <div class="mini-row"><span><b>Laura Gómez</b> — Pérdida de grasa</span><span class="pill">Sem. 1/10</span></div>
         </div>
-
+ 
         <div id="tab-socios" style="display:none;">
           <h3>Socios activos</h3>
           <div class="sub">Da de alta a un socio y genera su acceso. Se lo pasas tú mismo (WhatsApp, en persona, como prefieras).</div>
-
+ 
           <div class="field-block" style="background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:20px;">
             <span class="field-label">Nuevo socio</span>
             <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
@@ -575,19 +683,38 @@
             </div>
             <div id="newMemberResult" style="display:none; background: rgba(62,201,123,0.1); border:1px solid rgba(62,201,123,0.3); border-radius:6px; padding:12px 14px; font-size:12px; color:#3EC97B;"></div>
           </div>
-
+ 
           <div id="membersList">
             <div class="mini-row"><span><b>Marta Reyes</b> — marta@email.com</span><span class="pill">Activo</span></div>
             <div class="mini-row"><span><b>Iván Costa</b> — ivan@email.com</span><span class="pill">Activo</span></div>
             <div class="mini-row"><span><b>Laura Gómez</b> — laura@email.com</span><span class="pill">Activo</span></div>
           </div>
         </div>
-
+ 
+        <div id="tab-avisos" style="display:none;">
+          <h3>Avisos del gimnasio</h3>
+          <div class="sub">Lo que publiques aquí aparece al momento en la web pública, sección "Avisos".</div>
+ 
+          <div class="field-block" style="background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:20px;">
+            <span class="field-label">Nuevo aviso</span>
+            <input class="text-input" id="newNoticeTitle" placeholder="Título del aviso" style="max-width:none; margin-bottom:10px;">
+            <textarea id="newNoticeText" placeholder="Detalle del aviso" style="width:100%; background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:11px 14px; color:var(--chalk); font-size:14px; font-family:'Inter'; margin-bottom:12px; resize:vertical; min-height:70px;"></textarea>
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+              <label style="display:flex; align-items:center; gap:6px; font-size:12px; color:var(--chalk-dim);">
+                <input type="checkbox" id="newNoticeUrgent"> Marcar como urgente
+              </label>
+              <button class="upload-btn" id="btnAddNotice" style="margin-left:auto; padding:11px 18px;">Publicar aviso</button>
+            </div>
+          </div>
+ 
+          <div id="adminNoticesList"></div>
+        </div>
+ 
       </div>
     </div>
   </div>
 </div>
-
+ 
 <script>
   const btnOwnerAccess = document.getElementById('btnOwnerAccess');
   const loginOverlay = document.getElementById('loginOverlay');
@@ -595,7 +722,7 @@
   const btnEnterAdmin = document.getElementById('btnEnterAdmin');
   const publicView = document.getElementById('publicView');
   const adminView = document.getElementById('adminView');
-
+ 
   btnCancelLogin.addEventListener('click', ()=> loginOverlay.classList.remove('show'));
   btnEnterAdmin.addEventListener('click', ()=>{
     loginOverlay.classList.remove('show');
@@ -612,7 +739,7 @@
       loginOverlay.classList.add('show');
     }
   });
-
+ 
   document.querySelectorAll('.admin-nav .item').forEach(item=>{
     item.addEventListener('click', ()=>{
       document.querySelectorAll('.admin-nav .item').forEach(i=>i.classList.remove('on'));
@@ -621,18 +748,18 @@
       document.getElementById('tab-'+item.dataset.tab).style.display='block';
     });
   });
-
+ 
   const gymNameInput = document.getElementById('gymNameInput');
   const gymNameNav = document.getElementById('gymNameNav');
   const gymNameHero = document.getElementById('gymNameHero');
   const footerName = document.getElementById('footerName');
   const noLogoFallback = document.getElementById('noLogoFallback');
   const urlBar = document.getElementById('urlBar');
-
+ 
   function slugify(s){
     return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'').slice(0,20) || 'tugimnasio';
   }
-
+ 
   gymNameInput.addEventListener('input', ()=>{
     const val = gymNameInput.value || 'Tu Gimnasio';
     gymNameNav.textContent = val;
@@ -642,11 +769,11 @@
     const initials = val.trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
     noLogoFallback.textContent = initials || 'TG';
   });
-
+ 
   const logoInput = document.getElementById('logoInput');
   const previewBox = document.getElementById('previewBox');
   const logoSlot = document.getElementById('logoSlot');
-
+ 
   logoInput.addEventListener('change', (e)=>{
     const file = e.target.files[0];
     if(!file) return;
@@ -657,18 +784,18 @@
     };
     reader.readAsDataURL(file);
   });
-
+ 
   const colorPrimary = document.getElementById('colorPrimary');
   const colorSecondary = document.getElementById('colorSecondary');
   const hexPrimary = document.getElementById('hexPrimary');
   const hexSecondary = document.getElementById('hexSecondary');
   const root = document.documentElement;
-
+ 
   function hexToRgba(hex, a){
     const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
     return `rgba(${r},${g},${b},${a})`;
   }
-
+ 
   // luminancia relativa vs. fondo oscuro (#0C0D0F) — aviso si el contraste es insuficiente
   function relLuminance(hex){
     const r = parseInt(hex.slice(1,3),16)/255, g = parseInt(hex.slice(3,5),16)/255, b = parseInt(hex.slice(5,7),16)/255;
@@ -680,11 +807,11 @@
     const light = Math.max(L1,L2), dark = Math.min(L1,L2);
     return (light + 0.05) / (dark + 0.05);
   }
-
+ 
   const warnPrimary = document.getElementById('warnPrimary');
   const warnSecondary = document.getElementById('warnSecondary');
   const BG = '#0C0D0F';
-
+ 
   colorPrimary.addEventListener('input', ()=>{
     root.style.setProperty('--brand', colorPrimary.value);
     root.style.setProperty('--brand-soft', hexToRgba(colorPrimary.value, 0.12));
@@ -696,7 +823,7 @@
     hexSecondary.textContent = colorSecondary.value.toUpperCase();
     warnSecondary.classList.toggle('show', contrastRatio(colorSecondary.value, BG) < 3);
   });
-
+ 
   const schedule = {
     LUN: [
       {time:'08:00', name:'CrossFit', instr:'Sara G.', spots:'11/20'},
@@ -727,12 +854,12 @@
       {time:'10:00', name:'Funcional', instr:'Sara G.', spots:'12/20'},
     ],
   };
-
+ 
   const days = Object.keys(schedule);
   const platesEl = document.getElementById('dayPlates');
   const boardEl = document.getElementById('scheduleBoard');
   const booked = new Set();
-
+ 
   function renderPlates(active){
     platesEl.innerHTML = days.map(d => `
       <div class="plate ${d===active?'active':''}" data-day="${d}">${d}<span>${schedule[d].length}</span></div>
@@ -741,14 +868,14 @@
       p.addEventListener('click', ()=>{ renderPlates(p.dataset.day); renderBoard(p.dataset.day); });
     });
   }
-
+ 
   const waitlisted = new Set();
-
+ 
   function isFull(spots){
     const [taken, total] = spots.split('/').map(Number);
     return taken >= total;
   }
-
+ 
   function renderBoard(day){
     boardEl.innerHTML = schedule[day].map((c,i)=>{
       const key = day+i;
@@ -780,24 +907,32 @@
       });
     });
   }
-
+ 
   renderPlates('LUN');
   renderBoard('LUN');
-
+ 
+  // aparición suave de secciones al hacer scroll
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting) entry.target.classList.add('in-view');
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('#publicView .site-section').forEach(sec => revealObserver.observe(sec));
+ 
   // ---------- alta de socios ----------
   const btnAddMember = document.getElementById('btnAddMember');
   const newMemberName = document.getElementById('newMemberName');
   const newMemberEmail = document.getElementById('newMemberEmail');
   const newMemberResult = document.getElementById('newMemberResult');
   const membersList = document.getElementById('membersList');
-
+ 
   function genTempPassword(){
     const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
     let pass = '';
     for(let i=0;i<8;i++) pass += chars[Math.floor(Math.random()*chars.length)];
     return pass;
   }
-
+ 
   btnAddMember.addEventListener('click', ()=>{
     const name = newMemberName.value.trim();
     const email = newMemberEmail.value.trim();
@@ -814,17 +949,85 @@
     row.className = 'mini-row';
     row.innerHTML = `<span><b>${name}</b> — ${email}</span><span class="pill">Activo</span>`;
     membersList.prepend(row);
-
+ 
     newMemberResult.style.display='block';
     newMemberResult.style.background='rgba(62,201,123,0.1)';
     newMemberResult.style.borderColor='rgba(62,201,123,0.3)';
     newMemberResult.style.color='#3EC97B';
     newMemberResult.innerHTML = `✓ Acceso creado para <b>${name}</b>. Contraseña temporal: <span class="mono">${tempPass}</span> — pásasela para su primer inicio de sesión en ${urlBar.textContent}.`;
-
+ 
     newMemberName.value = '';
     newMemberEmail.value = '';
   });
+ 
+  // ---------- avisos ----------
+  const noticeIcons = {
+    alert: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L2 20h20L12 3z"/><path d="M12 10v4"/><circle cx="12" cy="17" r="0.8" fill="currentColor" stroke="none"/></svg>',
+    sparkle: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/></svg>',
+    trophy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v5a5 5 0 01-10 0V4z"/><path d="M7 6H4.5A1.5 1.5 0 003 7.5c0 2 1.5 3.5 3.5 3.5M17 6h2.5A1.5 1.5 0 0121 7.5c0 2-1.5 3.5-3.5 3.5M12 14v3M9 20h6M10 17h4v2a1 1 0 01-1 1h-2a1 1 0 01-1-1v-2z"/></svg>',
+    pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.6 7-11.5A7 7 0 105 9.5C5 14.4 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg>',
+  };
+ 
+  let notices = [
+    { icon:'alert', urgent:true, title:'Cerrado el lunes 18 por festivo local', text:'Recuperamos las clases de esa franja el sábado 23 a las 10:00 y las 12:00.', date:'hace 1 día' },
+    { icon:'sparkle', urgent:false, title:'Nueva clase de movilidad los jueves', text:'A partir de esta semana, jueves 20:00. Plazas limitadas a 12 personas.', date:'hace 3 días' },
+    { icon:'trophy', urgent:false, title:'Empieza el reto de burpees', text:'Todo el box compitiendo por los 1.000 burpees. Mira el ranking más abajo.', date:'hace 5 días' },
+  ];
+ 
+  const noticeFeed = document.getElementById('noticeFeed');
+  const btnMoreNotices = document.getElementById('btnMoreNotices');
+  const adminNoticesList = document.getElementById('adminNoticesList');
+  let noticesExpanded = false;
+  const NOTICES_COLLAPSED_COUNT = 2;
+ 
+  function renderNotices(){
+    const visible = noticesExpanded ? notices : notices.slice(0, NOTICES_COLLAPSED_COUNT);
+    noticeFeed.innerHTML = visible.map(n => `
+      <div class="notice-item ${n.urgent?'urgent':''}">
+        <div class="notice-icon">${noticeIcons[n.icon] || noticeIcons.pin}</div>
+        <div class="notice-body">
+          <div class="notice-top"><span class="notice-title">${n.title}</span><span class="notice-date">${n.date}</span></div>
+          <div class="notice-text">${n.text}</div>
+        </div>
+      </div>`).join('');
+    btnMoreNotices.style.display = notices.length > NOTICES_COLLAPSED_COUNT ? 'inline-block' : 'none';
+    btnMoreNotices.textContent = noticesExpanded ? 'Ver menos' : 'Ver más avisos';
+ 
+    adminNoticesList.innerHTML = notices.map((n,i) => `
+      <div class="mini-row">
+        <span><b>${n.title}</b>${n.urgent ? ' <span class="pill" style="background:rgba(193,68,60,0.14); color:#E06C63;">Urgente</span>' : ''}</span>
+        <button class="notice-del" data-idx="${i}">Eliminar</button>
+      </div>`).join('') || '<div class="sub">No hay avisos publicados todavía.</div>';
+ 
+    adminNoticesList.querySelectorAll('.notice-del').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        notices.splice(Number(btn.dataset.idx), 1);
+        renderNotices();
+      });
+    });
+  }
+ 
+  btnMoreNotices.addEventListener('click', ()=>{
+    noticesExpanded = !noticesExpanded;
+    renderNotices();
+  });
+ 
+  document.getElementById('btnAddNotice').addEventListener('click', ()=>{
+    const title = document.getElementById('newNoticeTitle').value.trim();
+    const text = document.getElementById('newNoticeText').value.trim();
+    const urgent = document.getElementById('newNoticeUrgent').checked;
+    if(!title || !text) return;
+    notices.unshift({ icon: urgent ? 'alert' : 'pin', urgent, title, text, date:'ahora mismo' });
+    document.getElementById('newNoticeTitle').value = '';
+    document.getElementById('newNoticeText').value = '';
+    document.getElementById('newNoticeUrgent').checked = false;
+    noticesExpanded = true;
+    renderNotices();
+  });
+ 
+  renderNotices();
 </script>
-
+ 
 </body>
 </html>
+ 
